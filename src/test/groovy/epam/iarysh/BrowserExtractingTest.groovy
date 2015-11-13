@@ -14,9 +14,9 @@ class BrowserExtractingTest {
     ]
 
     def EXPECTED = [
-            [family: "Mozilla/4.0", os: "Windows NT 5.1", type: "Browser", device: "Personal Computer"],
-            [family: "Mozilla/5.0", os: "Windows NT 6.1", type: "Browser", device: "Personal Computer"],
-            [family: "Mozilla/4.0", os: "Windows NT 5.1", type: "Browser", device: "Personal Computer"]
+            [browser: "Internet Explorer 6", os: "Windows XP", type: "Browser", device: "Computer", city: "234"],
+            [browser: "Internet Explorer 9", os: "Windows 7", type: "Browser", device: "Computer", city: "219"],
+            [browser: "Internet Explorer 6", os: "Windows XP", type: "Browser", device: "Computer", city: "230"]
     ]
 
     @Test
@@ -24,7 +24,7 @@ class BrowserExtractingTest {
         def client = new BrowserExtracting()
 
         CASES.eachWithIndex { entry, i ->
-            def result = client.evaluate(new Text(entry))
+            def result = client.evaluate(entry)
             assertEquals result, EXPECTED.get(i)
         }
     }

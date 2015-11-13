@@ -1,23 +1,32 @@
 package epam.iarysh
 
+import eu.bitwalker.useragentutils.UserAgent
 import org.apache.hadoop.hive.ql.exec.UDF
-import org.apache.hadoop.io.Text
 
 class BrowserExtracting extends UDF {
 
-    public Map<String, String> evaluate(Text str) {
+    public Map<String, String> evaluate(String str) {
         if (str == null) {
             return null
         }
 
-        def tokens = str.toString().split("\\t")
-        def clientInfo = tokens[4].split("\\(")
+        def tokens = str.split("\\t")
+
+        if (tokens.size() < 8) {
+            return null
+        }
+
+        def userAgentString = tokens[4]
+        def city = tokens[7]
+
+        def userAgent = new UserAgent(userAgentString)
 
         [
-                type: "Browser",
-                family: clientInfo[0]?.trim(),
-                os: clientInfo[1]?.split(";")[2]?.trim(),
-                device: "Personal Computer"
+                type  : userAgent?.browser?.browserType?.name,
+                browser: userAgent?.browser?.name,
+                os    : userAgent?.operatingSystem?.name,
+                device: userAgent?.operatingSystem?.deviceType?.name,
+                city: city
         ]
     }
 

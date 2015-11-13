@@ -44,6 +44,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- parse user-agent -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.18</version>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
@@ -62,7 +69,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>NumberingJob</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
